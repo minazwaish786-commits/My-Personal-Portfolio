@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  Personal Portfolio – Mehnaj Waish Shah
+  File: index.html
+  Stack: HTML5 + CSS3 + vanilla JavaScript (no frameworks)
+
+  How this page is organised
+    1. <head>      – metadata, SEO, favicon, links to CSS and JS
+    2. Skip link   – lets keyboard users jump straight to the content
+    3. SVG sprite  – every icon is defined once and reused with <use>
+    4. <header>    – fixed navigation bar (+ mobile hamburger menu)
+    5. <main>      – Home, About, Education, Skills, Projects, Contact
+    6. <footer>    – shortcuts, social links, dynamic year, back-to-top
+
+  Styling lives in css/style.css, behaviour in js/script.js.
+  Photo, CV and project images are switched on in js/script.js
+  (see SITE_CONFIG) once you have real files – see README.md.
+  ============================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Page title and description (shown in browser tabs and search results) -->
+  <title>Mehnaj Waish Shah | B.Tech CSE Student &amp; AI/ML Enthusiast – Portfolio</title>
+  <meta name="description" content="Portfolio of Mehnaj Waish Shah, a B.Tech Computer Science and Engineering student (AI &amp; ML specialization) at Shri Ramswaroop Memorial University, Lucknow. Education, skills, projects and contact details.">
+  <meta name="author" content="Mehnaj Waish Shah">
+
+  <!-- Browser UI colour (mobile address bar) and native dark form controls/scrollbars -->
+  <meta name="theme-color" content="#0B1020">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph tags: used for link previews when the site is shared -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mehnaj Waish Shah – B.Tech CSE Student | AI &amp; ML Enthusiast">
+  <meta property="og:description" content="Personal portfolio: education, technical skills, academic projects and contact details.">
+
+  <!--
+    Favicon: a tiny "M" monogram drawn as an inline SVG, so no extra file is
+    needed (and the browser does not request a missing favicon.ico).
+    Replace it with your own file later, e.g. <link rel="icon" href="images/favicon.png">
+  -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%237C3AED'/%3E%3Ctext x='32' y='45' font-size='36' font-weight='700' text-anchor='middle' fill='white' font-family='Arial,Helvetica,sans-serif'%3EM%3C/text%3E%3C/svg%3E">
+
+  <link rel="stylesheet" href="css/style.css">
+  <!-- "defer" = download now, run after the HTML has been parsed -->
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+  <!-- Accessibility: first Tab press reveals this link -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- =========================================================
+       SVG ICON SPRITE
+       Each <symbol> is an icon. Use it anywhere with:
+       <svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg>
+       ========================================================= -->
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <!-- Filled brand icons -->
+    <symbol id="i-github" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+
+    <!-- Outline (stroke) icons -->
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/><path d="M22 10v6"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><line x1="3" y1="21" x2="21" y2="21"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="19" r="2.2"/><circle cx="12" cy="11" r="1.6"/><line x1="7.2" y1="6" x2="16.8" y2="6"/><line x1="6.4" y1="7.9" x2="10.8" y2="10"/><line x1="17.6" y1="7.9" x2="13.2" y2="10"/><line x1="12" y1="12.6" x2="12" y2="16.8"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 16l.7 1.8L21.5 18.5l-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7L19 16z"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4"/><path d="M4 4h13l-2 4 2 4H4"/></symbol>
+  </svg>
+
+  <!-- =========================================================
+       SECTION 1: NAVIGATION BAR
+       ========================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-bar">
+
+      <!-- Brand / logo text -->
+      <a class="brand" href="#home"
+   aria-label="Mehnaj Waish Shah – go to the top of the page">
+
+    <img src="assets/profile.jpg"
+         alt="Mehnaj Waish Shah"
+         class="brand-photo">
+
+    <span class="brand-text">Mehnaj</span>
+
+</a>
+
+      <!-- Hamburger button: only visible on small screens.
+           aria-expanded tells screen readers whether the menu is open;
+           aria-controls points to the id of the menu it controls. -->
+      <button class="nav-toggle" id="nav-toggle" type="button"
+              aria-expanded="false" aria-controls="primary-nav" aria-label="Main menu">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <!-- Navigation links -->
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#home">Home</a></li>
+          <li><a class="nav-link" href="#about">About</a></li>
+          <li><a class="nav-link" href="#education">Education</a></li>
+          <li><a class="nav-link" href="#skills">Skills</a></li>
+          <li><a class="nav-link" href="#projects">Projects</a></li>
+          <li><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-cta-item"><a class="btn btn--primary btn--sm" href="#contact">Let&rsquo;s Talk</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- =========================================================
+         SECTION 2: HERO / HOME
+         ========================================================= -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+
+      <!-- Decorative background (hidden from screen readers) -->
+      <div class="hero-bg" aria-hidden="true">
+        <span class="hero-grid"></span>
+        <span class="glow glow--violet"></span>
+        <span class="glow glow--blue"></span>
+      </div>
+
+      <div class="container hero-inner">
+
+        <!-- Left: text content -->
+        <div class="hero-content">
+          <p class="eyebrow">Welcome to my portfolio</p>
+
+          <h1 class="hero-title" id="hero-title">Hi, I&rsquo;m <span class="gradient-text">Mehnaj Waish Shah</span>.</h1>
+
+          <p class="hero-role">B.Tech CSE Student | AI &amp; ML Enthusiast</p>
+
+          <p class="hero-description">
+            I am a Computer Science student passionate about technology, programming, web development and Artificial Intelligence. I enjoy learning new skills, solving problems and building creative digital solutions.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#projects">Explore My Work
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+            </a>
+            <a class="btn btn--outline" href="#contact">Contact Me</a>
+            <!-- Hidden until a real CV file is switched on in js/script.js (SITE_CONFIG.cv) -->
+            <a class="btn btn--ghost" id="cv-download" href="#" hidden>Download CV
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-download"></use></svg>
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <ul class="social-links" aria-label="Social links">
+              <li>
+                <a class="icon-link" href="https://github.com/minazwaish786" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)">
+                  <svg class="icon icon--solid" aria-hidden="true" focusable="false"><use href="#i-github"></use></svg>
+                </a>
+              </li>
+              <li>
+                <a class="icon-link" href="https://www.linkedin.com/in/mehnaj-waish-shah-80b08b386/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">
+                  <svg class="icon icon--solid" aria-hidden="true" focusable="false"><use href="#i-linkedin"></use></svg>
+                </a>
+              </li>
+              <li>
+                <a class="icon-link" href="mailto:minazwaish786@gmail.com" aria-label="Send an email to Mehnaj">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg>
+                </a>
+              </li>
+            </ul>
+
+            <p class="status-pill"><span class="status-dot" aria-hidden="true"></span>Currently learning AI &amp; ML</p>
+          </div>
+        </div>
+
+        <!-- Right: profile photo placeholder -->
+        <div class="hero-visual">
+          <div class="photo-wrap">
+            <div class="photo-frame" id="profile-photo-frame">
+              <!-- Shown until a real photo is switched on in js/script.js (SITE_CONFIG.profilePhoto) -->
+              <div class="photo-placeholder" id="profile-photo-placeholder" role="img" aria-label="Profile photo placeholder for Mehnaj Waish Shah">
+                <span class="photo-initials" aria-hidden="true">MWS</span>
+                <span class="photo-caption" aria-hidden="true">Profile photo placeholder</span>
+              </div>
+            </div>
+            <span class="float-chip float-chip--top">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-spark"></use></svg>AI &amp; ML
+            </span>
+            <span class="float-chip float-chip--bottom">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"></use></svg>Lucknow, India
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: ABOUT ME
+         ========================================================= -->
+    <section class="section section--alt" id="about" aria-labelledby="about-title">
+      <div class="container">
+
+        <div class="section-header" data-reveal>
+          <p class="section-label">Introduction</p>
+          <h2 class="section-title" id="about-title">About Me</h2>
+        </div>
+
+        <div class="about-grid">
+
+          <!-- Left column: written introduction -->
+          <div class="about-text" data-reveal>
+            <p>
+              I&rsquo;m a B.Tech student in <strong>Computer Science and Engineering</strong> at Shri Ramswaroop Memorial University in Lucknow, with a specialization in <strong>Artificial Intelligence and Machine Learning</strong>. I began the programme in 2025 and I&rsquo;m building my foundation across programming, mathematics and core computer science.
+            </p>
+            <p>
+              What draws me to AI and Machine Learning is the idea of teaching computers to find patterns and learn from data. I&rsquo;m still at the beginning of that journey, and I enjoy working through new concepts one step at a time.
+            </p>
+            <p>
+              I&rsquo;m also interested in frontend development &mdash; turning an idea into a page that people can actually open and use. This portfolio and my academic projects are where I practise HTML, CSS and JavaScript.
+            </p>
+            <p>
+              Java and Python are the languages I&rsquo;m learning with, and I use data structures, algorithms and problem solving to train myself to think more clearly about code. My goal is to grow into a skilled software engineer who writes clean, reliable code and keeps learning as technology changes.
+            </p>
+
+            <ul class="chip-list" aria-label="Interests">
+              <li class="chip">Computer Science</li>
+              <li class="chip">Artificial Intelligence</li>
+              <li class="chip">Machine Learning</li>
+              <li class="chip">Frontend Development</li>
+              <li class="chip">Problem Solving</li>
+            </ul>
+          </div>
+
+          <!-- Right column: quick facts card -->
+          <div class="card facts-card" data-reveal data-reveal-delay="120">
+            <h3 class="card-title">Quick Facts</h3>
+            <dl class="facts">
+              <div class="fact">
+                <dt>Degree</dt>
+                <dd>Bachelor of Technology (B.Tech)</dd>
+              </div>
+              <div class="fact">
+                <dt>Branch</dt>
+                <dd>Computer Science and Engineering</dd>
+              </div>
+              <div class="fact">
+                <dt>Specialization</dt>
+                <dd>Artificial Intelligence and Machine Learning</dd>
+              </div>
+              <div class="fact">
+                <dt>University</dt>
+                <dd>Shri Ramswaroop Memorial University</dd>
+              </div>
+              <div class="fact">
+                <dt>Session</dt>
+                <dd>2025&ndash;Present</dd>
+              </div>
+              <div class="fact">
+                <dt>Location</dt>
+                <dd>Lucknow, Uttar Pradesh, India</dd>
+              </div>
+            </dl>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: EDUCATION
+         To add another entry, copy one <li class="timeline-item"> block.
+         ========================================================= -->
+    <section class="section" id="education" aria-labelledby="education-title">
+      <div class="container">
+
+        <div class="section-header" data-reveal>
+          <p class="section-label">Academic journey</p>
+          <h2 class="section-title" id="education-title">My Education</h2>
+          <p class="section-intro">Where I&rsquo;m studying now and where I&rsquo;m heading next.</p>
+        </div>
+
+        <ol class="timeline">
+
+          <!-- Current degree -->
+          <li class="timeline-item timeline-item--current" data-reveal>
+            <span class="timeline-marker" aria-hidden="true">
+              <svg class="icon" focusable="false"><use href="#i-cap"></use></svg>
+            </span>
+            <article class="card edu-card">
+              <div class="edu-badges">
+                <span class="badge badge--accent">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg>2025&ndash;Present
+                </span>
+                <span class="badge badge--blue">Currently pursuing</span>
+              </div>
+              <h3 class="edu-degree">Bachelor of Technology (B.Tech)</h3>
+              <p class="edu-branch">Computer Science and Engineering</p>
+              <ul class="edu-details">
+                <li>
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-spark"></use></svg>
+                  <span><strong>Specialization:</strong> Artificial Intelligence and Machine Learning</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-building"></use></svg>
+                  <span><strong>Institution:</strong> Shri Ramswaroop Memorial University, Lucknow</span>
+                </li>
+              </ul>
+            </article>
+          </li>
+
+          <!-- Future goal (taken from the "About" goals, not an achievement) -->
+          <li class="timeline-item timeline-item--goal" data-reveal data-reveal-delay="120">
+            <span class="timeline-marker" aria-hidden="true">
+              <svg class="icon" focusable="false"><use href="#i-flag"></use></svg>
+            </span>
+            <article class="card edu-card edu-card--goal">
+              <div class="edu-badges">
+                <span class="badge badge--outline">Next goal</span>
+              </div>
+              <h3 class="edu-degree">Skilled Software Engineer</h3>
+              <p class="edu-branch">Keep learning, keep building, and keep improving my code.</p>
+            </article>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 5: TECHNICAL SKILLS
+         The level label (Learning / Exploring) is plain text –
+         edit it in the HTML whenever your confidence changes.
+         ========================================================= -->
+    <section class="section section--alt" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+
+        <div class="section-header" data-reveal>
+          <p class="section-label">What I&rsquo;m learning</p>
+          <h2 class="section-title" id="skills-title">My Technical Skills</h2>
+          <p class="section-intro">I&rsquo;m early in my journey, so the labels below describe where I honestly am today &mdash; they will change as I keep learning.</p>
+        </div>
+
+        <div class="skills-grid">
+
+          <!-- Programming -->
+          <article class="card skill-card" data-reveal>
+            <div class="skill-card-header">
+              <span class="skill-icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-terminal"></use></svg></span>
+              <h3 class="card-title">Programming</h3>
+            </div>
+            <ul class="skill-list">
+              <li class="skill-item"><span class="skill-name">Java</span><span class="skill-level">Learning</span></li>
+              <li class="skill-item"><span class="skill-name">Python</span><span class="skill-level">Learning</span></li>
+            </ul>
+          </article>
+
+          <!-- Web Development -->
+          <article class="card skill-card" data-reveal data-reveal-delay="80">
+            <div class="skill-card-header">
+              <span class="skill-icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-globe"></use></svg></span>
+              <h3 class="card-title">Web Development</h3>
+            </div>
+            <ul class="skill-list">
+              <li class="skill-item"><span class="skill-name">HTML5</span><span class="skill-level">Learning</span></li>
+              <li class="skill-item"><span class="skill-name">CSS3</span><span class="skill-level">Learning</span></li>
+              <li class="skill-item"><span class="skill-name">JavaScript</span><span class="skill-level">Learning</span></li>
+            </ul>
+          </article>
+
+          <!-- Areas of Interest -->
+          <article class="card skill-card" data-reveal data-reveal-delay="160">
+            <div class="skill-card-header">
+              <span class="skill-icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-cpu"></use></svg></span>
+              <h3 class="card-title">Areas of Interest</h3>
+            </div>
+            <ul class="skill-list">
+              <li class="skill-item"><span class="skill-name">Artificial Intelligence</span><span class="skill-level skill-level--explore">Exploring</span></li>
+              <li class="skill-item"><span class="skill-name">Machine Learning</span><span class="skill-level skill-level--explore">Exploring</span></li>
+              <li class="skill-item"><span class="skill-name">Data Structures and Algorithms</span><span class="skill-level skill-level--explore">Exploring</span></li>
+              <li class="skill-item"><span class="skill-name">Problem Solving</span><span class="skill-level skill-level--explore">Exploring</span></li>
+            </ul>
+          </article>
+
+          <!-- Additional Tools -->
+          <article class="card skill-card" data-reveal data-reveal-delay="240">
+            <div class="skill-card-header">
+              <span class="skill-icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-tool"></use></svg></span>
+              <h3 class="card-title">Additional Tools</h3>
+            </div>
+            <ul class="skill-list">
+              <li class="skill-item"><span class="skill-name">Visual Studio Code</span><span class="skill-level">Learning</span></li>
+              <li class="skill-item"><span class="skill-name">Git</span><span class="skill-level">Learning</span></li>
+              <li class="skill-item"><span class="skill-name">GitHub</span><span class="skill-level">Learning</span></li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 6: PROJECTS
+
+         REUSABLE PROJECT CARD – to add a project, copy one whole
+         <article class="card project-card"> block and change:
+           • data-project="your-id"      (must match js/script.js SITE_CONFIG)
+           • the title, description and technology badges
+           • the icon inside .media-placeholder (any <symbol> id above)
+         Buttons marked "hidden" appear automatically when you add a real
+         URL for them in js/script.js (SITE_CONFIG.projects).
+         ========================================================= -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+
+        <div class="section-header" data-reveal>
+          <p class="section-label">Selected work</p>
+          <h2 class="section-title" id="projects-title">My Projects</h2>
+          <p class="section-intro">A few things I&rsquo;ve worked on so far. More will be added as I build them.</p>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- PROJECT 1: ScamShield -->
+          <article class="card project-card" data-project="scamshield" data-reveal>
+            <div class="project-media" data-project-media data-image-alt="Screenshot of the ScamShield suspicious message checker">
+              <div class="media-placeholder">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-shield"></use></svg>
+                <span>Project image placeholder</span>
+              </div>
+              <span class="project-tag">Web App</span>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">ScamShield &ndash; Suspicious Message Checker</h3>
+              <p class="project-description">
+                A web-based suspicious message checker designed to help users identify potentially fraudulent messages.
+              </p>
+              <ul class="tag-list" aria-label="Technologies used">
+                <li class="badge badge--blue">HTML</li>
+                <li class="badge badge--blue">CSS</li>
+                <li class="badge badge--blue">JavaScript</li>
+              </ul>
+              <div class="project-actions">
+                <a class="btn btn--primary btn--sm"
+                   href="https://radhikasingh6627-bit.github.io/Scam-shield-suspicious-message-checker-/"
+                   target="_blank" rel="noopener noreferrer">
+                  Live Demo<span class="visually-hidden"> of ScamShield (opens in a new tab)</span>
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-external"></use></svg>
+                </a>
+                <!-- Hidden until SITE_CONFIG.projects.scamshield.repoUrl is filled in -->
+                <a class="btn btn--outline btn--sm" data-project-repo href="#" target="_blank" rel="noopener noreferrer" hidden>
+                  <svg class="icon icon--solid" aria-hidden="true" focusable="false"><use href="#i-github"></use></svg>
+                  GitHub Repository<span class="visually-hidden"> for ScamShield (opens in a new tab)</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 2: Graph Theory -->
+          <article class="card project-card" data-project="graph-theory" data-reveal data-reveal-delay="120">
+            <div class="project-media" data-project-media data-image-alt="Illustration for the Graph Theory – Real-Life Applications project">
+              <div class="media-placeholder">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-network"></use></svg>
+                <span>Project image placeholder</span>
+              </div>
+              <span class="project-tag">Academic</span>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Graph Theory &ndash; Real-Life Applications</h3>
+              <p class="project-description">
+                An academic project exploring graph theory concepts and their practical applications in Computer Science.
+              </p>
+              <ul class="tag-list" aria-label="Topics covered">
+                <li class="badge badge--blue">Mathematics</li>
+                <li class="badge badge--blue">Graph Theory</li>
+              </ul>
+              <div class="project-actions">
+                <!-- Hidden until SITE_CONFIG.projects['graph-theory'].detailsUrl is filled in -->
+                <a class="btn btn--outline btn--sm" data-project-details href="#" hidden>
+                  View Details<span class="visually-hidden"> of the Graph Theory project</span>
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 7: CONTACT
+         ========================================================= -->
+    <section class="section section--alt" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+
+        <div class="section-header" data-reveal>
+          <p class="section-label">Get in touch</p>
+          <h2 class="section-title" id="contact-title">Let&rsquo;s Connect</h2>
+          <p class="section-intro">Have a project idea or want to connect? Feel free to reach out.</p>
+        </div>
+
+        <div class="contact-grid">
+
+          <!-- Left: contact details -->
+          <div class="contact-info" data-reveal>
+            <ul class="contact-list">
+              <li class="contact-item">
+                <span class="contact-icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-mail"></use></svg></span>
+                <div>
+                  <p class="contact-label">Email</p>
+                  <a class="contact-value" href="mailto:minazwaish786@gmail.com">minazwaish786@gmail.com</a>
+                </div>
+              </li>
+              <li class="contact-item">
+                <span class="contact-icon" aria-hidden="true"><svg class="icon icon--solid" focusable="false"><use href="#i-github"></use></svg></span>
+                <div>
+                  <p class="contact-label">GitHub</p>
+                  <a class="contact-value" href="https://github.com/minazwaish786" target="_blank" rel="noopener noreferrer">github.com/minazwaish786<span class="visually-hidden"> (opens in a new tab)</span></a>
+                </div>
+              </li>
+              <li class="contact-item">
+                <span class="contact-icon" aria-hidden="true"><svg class="icon icon--solid" focusable="false"><use href="#i-linkedin"></use></svg></span>
+                <div>
+                  <p class="contact-label">LinkedIn</p>
+                  <a class="contact-value" href="https://www.linkedin.com/in/mehnaj-waish-shah-80b08b386/" target="_blank" rel="noopener noreferrer">Mehnaj Waish Shah<span class="visually-hidden"> on LinkedIn (opens in a new tab)</span></a>
+                </div>
+              </li>
+              <li class="contact-item">
+                <span class="contact-icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-pin"></use></svg></span>
+                <div>
+                  <p class="contact-label">Location</p>
+                  <p class="contact-value contact-value--text">Lucknow, Uttar Pradesh, India</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right: contact form.
+               "novalidate" is added by JavaScript so our own messages are shown;
+               without JavaScript the browser's built-in validation still works.
+               action="mailto:" is the no-JavaScript fallback. -->
+          <div class="card form-card" data-reveal data-reveal-delay="120">
+            <h3 class="card-title">Send me a message</h3>
+            <p class="form-note">
+              This is a static website with no server, so the form opens <strong>your own email app</strong> with the message filled in. You press Send there.
+            </p>
+
+            <form id="contact-form" class="contact-form" action="mailto:minazwaish786@gmail.com" method="post" enctype="text/plain" data-recipient="minazwaish786@gmail.com">
+
+              <div class="field">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" autocomplete="name" maxlength="60" required
+                       aria-describedby="name-error" placeholder="e.g. Aisha Khan">
+                <p class="field-error" id="name-error" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" autocomplete="email" maxlength="100" required
+                       aria-describedby="email-error" placeholder="you@example.com">
+                <p class="field-error" id="email-error" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" autocomplete="off" maxlength="100" required
+                       aria-describedby="subject-error" placeholder="What is this about?">
+                <p class="field-error" id="subject-error" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" maxlength="1000" required
+                          aria-describedby="message-error message-count" placeholder="Write your message here (at least 20 characters)"></textarea>
+                <div class="field-footer">
+                  <p class="field-error" id="message-error" hidden></p>
+                  <p class="field-count" id="message-count">0 / 1000</p>
+                </div>
+              </div>
+
+              <button class="btn btn--primary btn--block" type="submit">
+                Send Message
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-send"></use></svg>
+              </button>
+
+              <!-- Success / error feedback (announced to screen readers) -->
+              <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       SECTION 8: FOOTER
+       ========================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#home" aria-label="Mehnaj – go to the top of the page">
+            <span class="brand-mark" aria-hidden="true">M</span>
+            <span class="brand-text">Mehnaj Waish Shah</span>
+          </a>
+          <p class="footer-tagline">Learning, building and growing &mdash; one project at a time.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer">
+          <h2 class="footer-title">Quick Links</h2>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-connect">
+          <h2 class="footer-title">Connect</h2>
+          <ul class="social-links" aria-label="Social links">
+            <li>
+              <a class="icon-link" href="https://github.com/minazwaish786" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)">
+                <svg class="icon icon--solid" aria-hidden="true" focusable="false"><use href="#i-github"></use></svg>
+              </a>
+            </li>
+            <li>
+              <a class="icon-link" href="https://www.linkedin.com/in/mehnaj-waish-shah-80b08b386/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">
+                <svg class="icon icon--solid" aria-hidden="true" focusable="false"><use href="#i-linkedin"></use></svg>
+              </a>
+            </li>
+            <li>
+              <a class="icon-link" href="mailto:minazwaish786@gmail.com" aria-label="Send an email to Mehnaj">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="footer-bottom">
+        &copy; <span id="current-year">2026</span> Mehnaj Waish Shah. Built with HTML, CSS &amp; JavaScript.
+      </p>
+    </div>
+
+    <!-- Floating "Back to Top" button – appears after scrolling down -->
+    <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"></use></svg>
+    </button>
+  </footer>
+</body>
+</html>
