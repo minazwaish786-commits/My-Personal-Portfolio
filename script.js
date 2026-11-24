@@ -31,7 +31,7 @@
      ======================================================================== */
   const SITE_CONFIG = {
     // Hero profile photo – put the file at assets/profile.jpg
-    profilePhoto: { enabled: true, path: 'assets/profile.jpg' },
+    profilePhoto: { enabled: true, path: 'profile.jpg' },
 
     // "Download CV" button – put the file at assets/Mehnaj-CV.pdf
     cv: { enabled: false, path: 'assets/Mehnaj-CV.pdf', downloadName: 'Mehnaj-Waish-Shah-CV.pdf' },
