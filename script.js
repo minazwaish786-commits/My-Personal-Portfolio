@@ -561,7 +561,7 @@
     started = true;
 
     initNavigation();
-    initSmoothScroll();
+    // initSmoothScroll();
     initScrollEffects();
     initRevealAnimations();
     initContactForm();
